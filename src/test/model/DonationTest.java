@@ -68,5 +68,5 @@ public class DonationTest {
     void testSetters() {
         testDonation.setQuantity(20);
         assertEquals(20, testDonation.getQuantity());
-    }   
+    }
 }

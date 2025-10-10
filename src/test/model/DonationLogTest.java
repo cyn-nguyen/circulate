@@ -1,8 +1,9 @@
 package model;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -88,6 +89,9 @@ public class DonationLogTest {
     void testGetDonation() {
         testDonationLog.addDonation(testDonation1);
         testDonationLog.addDonation(testDonation2);
+        assertTrue(testDonationLog.hasDonation("test donation 1"));
         assertEquals(testDonation1, testDonationLog.getDonation("test donation 1"));
+        assertFalse(testDonationLog.hasDonation("test donation 3"));
+        assertEquals(null, testDonationLog.getDonation("test donation 3"));
     }
 }
