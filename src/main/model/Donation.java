@@ -53,7 +53,7 @@ public class Donation {
     }
 
     // setters
-    public void setQuantity() {
+    public void setQuantity(int quantity) {
         // stub
     }
 }
