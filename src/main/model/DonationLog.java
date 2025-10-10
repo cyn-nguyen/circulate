@@ -65,6 +65,32 @@ public class DonationLog {
         return null;
     }
 
+     /*
+     * REQUIRES: getNumEntries() > 0 and index >= 0
+     * EFFECTS: returns the donation entry corresponding to the given index
+     */
+    public Donation getDonation(int index) {
+        return this.donationLog.get(index);
+    }
+
+    /*
+     * REQUIRES: getNumEntries() > 0
+     * EFFECTS: returns true if all donations in the donation log have the same
+     *          status, otherwise returns false
+     */
+    public boolean isFiltered() {
+        boolean sameStatus = true;
+        String firstDonationInLogStatus = this.getDonation(0).getStatus();
+
+        for (Donation donation : this.donationLog) {
+            if (!donation.getStatus().equals(firstDonationInLogStatus)) {
+                sameStatus = false;
+                break;
+            }
+        }
+        return sameStatus;
+    }
+
     // getters
     public int getNumEntries() {
         return this.donationLog.size();
