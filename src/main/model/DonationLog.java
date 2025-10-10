@@ -1,16 +1,19 @@
 package model;
 
+import java.util.ArrayList;
+
 /*
  * Represents a donation log holding Donation items in the order
  * they are added
  */
 public class DonationLog {
+    private ArrayList<Donation> donationLog;
 
     /*
      * EFFECTS: constructs a new empty DonationLog item
      */
     public DonationLog() {
-        // stub
+        this.donationLog = new ArrayList<>();
     }
     
     /*
@@ -18,7 +21,7 @@ public class DonationLog {
      * EFFECTS: adds a donation to the end of the donation log
      */
     public void addDonation(Donation donation) {
-        // stub
+        this.donationLog.add(donation);
     }
 
     /*
@@ -27,7 +30,13 @@ public class DonationLog {
      *          log containing only donation entries with the same status
      */
     public DonationLog filterByStatus(String status) {
-        return null; // stub
+        DonationLog filteredDonationLog = new DonationLog();
+        for (Donation donation : this.donationLog) {
+            if (donation.getStatus().equals(status)) {
+                filteredDonationLog.addDonation(donation);
+            }
+        }
+        return filteredDonationLog;
     } 
 
     /*
@@ -35,6 +44,11 @@ public class DonationLog {
      *          returns true if so, otherwise returns false
      */
     public boolean hasDonation(String donationName) {
+        for (Donation donation : this.donationLog) {
+            if (donation.getName().equals(donationName)) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -43,11 +57,17 @@ public class DonationLog {
      * EFFECTS: returns the donation entry corresponding to the given donationName
      */
     public Donation getDonation(String donationName) {
+        for (Donation donation : this.donationLog) {
+            if (donation.getName().equals(donationName)) {
+                return donation;
+            }
+        }
         return null;
     }
 
     // getters
     public int getNumEntries() {
-        return -1; // stub
+        return this.donationLog.size();
     }
+
 }
