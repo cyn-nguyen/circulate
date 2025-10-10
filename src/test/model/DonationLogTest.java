@@ -86,12 +86,28 @@ public class DonationLogTest {
     }
 
     @Test
-    void testGetDonation() {
+    void testGetDonationUsingDonation() {
         testDonationLog.addDonation(testDonation1);
         testDonationLog.addDonation(testDonation2);
         assertTrue(testDonationLog.hasDonation("test donation 1"));
         assertEquals(testDonation1, testDonationLog.getDonation("test donation 1"));
         assertFalse(testDonationLog.hasDonation("test donation 3"));
         assertEquals(null, testDonationLog.getDonation("test donation 3"));
+    }
+
+    @Test
+    void testGetDonationUsingIndex() {
+        testDonationLog.addDonation(testDonation1);
+        testDonationLog.addDonation(testDonation2);
+        assertEquals(testDonation1, testDonationLog.getDonation(0));
+    }
+    
+    @Test
+    void testIsFiltered() {
+        testDonationLog.addDonation(testDonation1);
+        testDonationLog.addDonation(testDonation2);
+        assertTrue(testDonationLog.isFiltered());
+        testDonation1.markAsPending();
+        assertFalse(testDonationLog.isFiltered());
     }
 }
