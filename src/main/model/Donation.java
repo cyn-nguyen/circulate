@@ -10,20 +10,20 @@ public class Donation {
     private static final String PICKED_UP = "picked up";
 
     private String name;
-    private int quantity; 
+    private int quantity;
     private String status;
 
     /*
      * REQUIRES: name has a non-zero length and quantity > 0
-     * EFFECTS: constructs a new Donation item with the given name 
-     *          and quantity; item's status is available
+     * EFFECTS: constructs a new Donation item with the given name
+     * and quantity; item's status is available
      */
-    
+
     public Donation(String name, int quantity) {
         this.name = name;
         this.quantity = quantity;
         this.status = AVAILABLE;
-        }
+    }
 
     /*
      * MODIFIES: this
@@ -31,15 +31,15 @@ public class Donation {
      */
     public void markAsAvailable() {
         this.status = AVAILABLE;
-        }
-    
+    }
+
     /*
      * MODIFIES: this
      * EFFECTS: marks the donation status as pending pick up
      */
     public void markAsPending() {
         this.status = PENDING;
-        }
+    }
 
     /*
      * MODIFIES: this
@@ -47,7 +47,7 @@ public class Donation {
      */
     public void markAsPickedUp() {
         this.status = PICKED_UP;
-        }
+    }
 
     // getters
     public String getName() {
@@ -63,7 +63,16 @@ public class Donation {
     }
 
     // setters
-    public void setQuantity(int quantity){
+    public void setQuantity(int quantity) {       
         this.quantity = quantity;
+    }
+
+    /*
+     * REQUIRES: status is "available" or "pending pick up" or "picked up"
+     * MODIFIES: this
+     * EFFECTS: sets the donation status
+     */
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

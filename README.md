@@ -8,7 +8,7 @@ This application is a donation logging tool that grocery stores can use to track
 
 ### User stories
 As a user, I want to be able to:
-- add a donation entry into the donation log, specifying the name of the item, the quantity available, and the best before date
+- add a donation entry into the donation log, specifying the name of the item, the quantity available, and the availability status
 - mark a donation as pending pick-up
 - mark a donation as picked up
 - view the entire donation log

@@ -34,7 +34,6 @@ public class DonationApp {
 
         printDivider();
         System.out.println("\nWelcome to circulate: a donation tracking application\n");
-        printDivider();
 
         while (appIsRunning) {
             displayMenu();
@@ -45,8 +44,6 @@ public class DonationApp {
                 String input = this.scanner.nextLine();
                 validInput = processInput(input);
             } while (!validInput);
-
-            //appIsRunning = false;
         }
 
         System.out.println("\nClosing application...");
@@ -56,6 +53,7 @@ public class DonationApp {
      * EFFECTS: displays menu options to the user
      */
     public void displayMenu() {
+        printDivider();
         System.out.println("\nMenu options:\n");
         System.out.println("\t1. Add a donation entry");
         System.out.println("\t2. Change the status of a donation entry");
@@ -81,6 +79,7 @@ public class DonationApp {
             doChangeDonationStatus();
         } else if (input.equals("3")) {
             displayDonationLog(this.donationLog);
+            printDivider();
         } else if (input.equals("4")) {
             doFilterByStatus();
         } else if (input.equals("5")) {
@@ -88,7 +87,6 @@ public class DonationApp {
         } else {
             printDivider();
             System.out.println("*** Error: selection not valid. ***\nPlease select an option from 1-5.");
-            printDivider();
             displayMenu();
             return false;
         }
@@ -143,14 +141,9 @@ public class DonationApp {
             System.out.println("\nWhich status would you like to change \"" + name + "\" to?");
             System.out.println("\nCurrent status of \"" + name + "\" is: " + donation.getStatus());
             String status = getValidDonationStatus();
-            if (status.equals("available")) {
-                donation.markAsAvailable();
-            } else if (status.equals("pending pick up")) {
-                donation.markAsPending();
-            } else if (status.equals("picked up")) {
-                donation.markAsPickedUp();
-            }
-            System.out.println("\nDonation item \"" + name + "\" status successfully changed to \"" + donation.getStatus() + "\"!");
+            donation.setStatus(status);
+            System.out.println("\nDonation item \"" + name + "\" status successfully changed to \"" 
+                                + donation.getStatus() + "\"!");
             printDivider();
         }
     }
@@ -186,20 +179,20 @@ public class DonationApp {
      */
     public void displayDonationLog(DonationLog donationLog) {
         if (donationLog.getNumEntries() == 0) {
-            System.out.println("\n*** Error: donation log has no entries. ***");
-            System.out.println("\nTry adding items first!");
-            printDivider();
+            System.out.println("\n*** Error: donation log has no entries. ***\nTry adding items first!");
         } else {
             String status = donationLog.getDonation(0).getStatus();
             if (donationLog.isFiltered() && donationLog.getNumEntries() < this.donationLog.getNumEntries()) {
                 printDivider();
                 System.out.println("NOW VIEWING: donation log filtered by status \"" + status + "\"");
-                System.out.println("\nShowing " + donationLog.getNumEntries() + " of " + this.donationLog.getNumEntries() + " items");
+                System.out.println("\nShowing " + donationLog.getNumEntries() + " of " 
+                                    + this.donationLog.getNumEntries() + " items");
             } else {
                 printDivider();
                 System.out.println("NOW VIEWING: entire donation log\n");
                 if (donationLog.isFiltered()) {
-                    System.out.println(donationLog.getNumEntries() + " of " + this.donationLog.getNumEntries() + " items are \"" + status +"\"");
+                    System.out.println(donationLog.getNumEntries() + " of " 
+                                        + this.donationLog.getNumEntries() + " items are \"" + status + "\"");
                 }
             }
             System.out.println("\nName - Quantity - Status\n");
@@ -207,7 +200,6 @@ public class DonationApp {
                 Donation donation = donationLog.getDonation(donationIndex);
                 System.out.println(donation.getName() + " " + donation.getQuantity() + " " + donation.getStatus());
             }
-            printDivider();
         }
     }
 
@@ -244,12 +236,12 @@ public class DonationApp {
                     status = "available";
                 } else if (status.equals("2")) {
                     status = "pending pick up";
-                } else if (status.equals("3")) {
+                } else {
                     status = "picked up";
+                }
             } else {
                 System.out.println("\n*** Error: selection not valid. ***\nPlease select an option from 1-3.");
             }
-        }
         }
         return status;
     }

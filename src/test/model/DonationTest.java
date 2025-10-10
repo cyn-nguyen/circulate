@@ -68,5 +68,7 @@ public class DonationTest {
     void testSetters() {
         testDonation.setQuantity(20);
         assertEquals(20, testDonation.getQuantity());
+        testDonation.setStatus("pending pick up");
+        assertEquals("pending pick up", testDonation.getStatus());
     }
 }
