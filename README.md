@@ -8,10 +8,9 @@ This application is a donation logging tool that grocery stores can use to track
 
 ### User stories
 As a user, I want to be able to:
-- add a donation entry into the donation log, specifying the name of the item, the quantity available, and the availability status
-- mark a donation as pending pick-up
-- mark a donation as picked up
-- view the entire donation log
-- filter the donation log to see and keep count of the donation items currently available
-- filter the donation log to see and keep count of the donation items pending pick-up
-- filter the donation log to see and keep count of the donation items that have been picked up
+- add an available donation item into the donation log, specifying the name of the item and the quantity available
+- update a donation item's status to available, pending pick-up, or picked up
+- view the entire donation log and keep count of all items (of any status) in the log
+- filter the donation log to view and keep count of the items currently available, pending pick-up, or picked up
+- be given the option to save all updates made to the donation log to file upon selecting the quit option from the menu
+- be given the option to load a donation log from file upon starting the application

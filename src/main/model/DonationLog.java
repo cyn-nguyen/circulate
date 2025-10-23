@@ -65,8 +65,8 @@ public class DonationLog {
         return null;
     }
 
-     /*
-     * REQUIRES: getNumEntries() > 0 and index >= 0
+    /*
+     * REQUIRES: getNumEntries() > 0 and getNumEntries() > index >= 0
      * EFFECTS: returns the donation entry corresponding to the given index
      */
     public Donation getDonation(int index) {
