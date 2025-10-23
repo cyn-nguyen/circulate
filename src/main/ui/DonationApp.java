@@ -2,6 +2,7 @@ package ui;
 
 import java.util.Scanner;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import model.Donation;
 import model.DonationLog;
 
@@ -10,6 +11,7 @@ import model.DonationLog;
  * into the donation log, view individual donation entries, and
  * view and filter the entire donation log
  */
+@ExcludeFromJacocoGeneratedReport
 public class DonationApp {
     private DonationLog donationLog;
     private Scanner scanner;

@@ -16,7 +16,7 @@ public class Donation {
     /*
      * REQUIRES: name has a non-zero length and quantity > 0
      * EFFECTS: constructs a new Donation item with the given name
-     * and quantity; item's status is available
+     *          and quantity; item's status is available
      */
 
     public Donation(String name, int quantity) {
