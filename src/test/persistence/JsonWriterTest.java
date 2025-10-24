@@ -60,8 +60,8 @@ public class JsonWriterTest extends JsonTest {
             JsonReader reader = new JsonReader("./data/testWriterGeneralDonationLog.json");
             donationLog = reader.read();
             assertEquals(2, donationLog.getNumEntries());
-            checkDonation("bananas", 5, donationLog.getDonation(0));
-            checkDonation("apples", 10, donationLog.getDonation(1));
+            checkDonation("bananas", 5, "available", donationLog.getDonation(0));
+            checkDonation("apples", 10, "available", donationLog.getDonation(1));
 
         } catch (IOException e) {
             fail("Exception should not have been thrown");

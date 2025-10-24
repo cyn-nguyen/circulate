@@ -1,0 +1,17 @@
+{"donations": [
+    {
+        "quantity": 1,
+        "name": "banana",
+        "status": "available"
+    },
+    {
+        "quantity": 3,
+        "name": "apple",
+        "status": "available"
+    },
+    {
+        "quantity": 5,
+        "name": "pear",
+        "status": "pending pick up"
+    }
+]}

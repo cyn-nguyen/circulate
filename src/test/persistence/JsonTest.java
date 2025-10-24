@@ -11,7 +11,7 @@ import model.Donation;
  */
 @ExcludeFromJacocoGeneratedReport
 public class JsonTest {
-    protected void checkDonation(String name, int quantity, Donation donation) {
+    protected void checkDonation(String name, int quantity, String status, Donation donation) {
         assertEquals(name, donation.getName());
         assertEquals(quantity, donation.getQuantity());
         assertEquals("available", donation.getStatus());

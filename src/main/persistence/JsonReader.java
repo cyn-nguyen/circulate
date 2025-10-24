@@ -74,13 +74,15 @@ public class JsonReader {
     }
 
     /*
-     * MODIFIES: donationg log
+     * MODIFIES: donation log
      * EFFECTS: parses a donation from JSON object and adds it to donation log
      */
     private void addDonation(DonationLog donationLog, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         int quantity = jsonObject.getInt("quantity");
+        String status = jsonObject.getString("status");
         Donation donation = new Donation(name, quantity);
+        donation.setStatus(status);
         donationLog.addDonation(donation);
     }
 }

@@ -1,10 +1,14 @@
 package ui;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import model.Donation;
 import model.DonationLog;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 /*
  * Donation application that allows the user to add donations
@@ -13,9 +17,12 @@ import model.DonationLog;
  */
 @ExcludeFromJacocoGeneratedReport
 public class DonationApp {
+    private static final String JSON_STORE = "./data/donationlog.json";
     private DonationLog donationLog;
     private Scanner scanner;
     private boolean appIsRunning;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     /*
      * EFFECTS: creates a new instance of the donation application
@@ -24,6 +31,8 @@ public class DonationApp {
     public DonationApp() {
         this.donationLog = new DonationLog();
         this.scanner = new Scanner(System.in);
+        this.jsonWriter = new JsonWriter(JSON_STORE);
+        this.jsonReader = new JsonReader(JSON_STORE);
         runDonationApp();
     }
 
@@ -37,17 +46,14 @@ public class DonationApp {
         printDivider();
         System.out.println("\nWelcome to circulate: a donation tracking application\n");
 
+        loadDonationLog();
+
         while (appIsRunning) {
             displayMenu();
-
-            boolean validInput = true;
-            do {
-                System.out.print("Please enter your selection (1-5): ");
-                String input = this.scanner.nextLine();
-                validInput = processInput(input);
-            } while (!validInput);
-        }
-
+            System.out.print("Please enter your selection (1-5): ");
+            String input = this.scanner.nextLine();
+            appIsRunning = processInput(input);
+        } 
         System.out.println("\nClosing application...");
     }
 
@@ -81,16 +87,14 @@ public class DonationApp {
             doChangeDonationStatus();
         } else if (input.equals("3")) {
             displayDonationLog(this.donationLog);
-            printDivider();
         } else if (input.equals("4")) {
             doFilterByStatus();
         } else if (input.equals("5")) {
-            this.appIsRunning = false;
+            saveDonationLog();
+            return false;
         } else {
             printDivider();
             System.out.println("*** Error: selection not valid. ***\nPlease select an option from 1-5.");
-            displayMenu();
-            return false;
         }
         return true;
     }
@@ -106,6 +110,7 @@ public class DonationApp {
         do {
             System.out.print("\nEnter quantity available: ");
             quantity = this.scanner.nextInt();
+            this.scanner.nextLine();
             if (quantity <= 0) {
                 System.out.println("\n*** Error: quantity must be greater than 0. ***");
             }
@@ -118,7 +123,6 @@ public class DonationApp {
             throw new Exception();
         } else {
             System.out.println("\nDonation \"" + name + "\" successfully added to donation log!");
-            printDivider();
         }
     }
 
@@ -136,7 +140,6 @@ public class DonationApp {
         if (donation == null) {
             System.out.println("\n*** Error: donation \"" + name + "\" not in donation log. ***");
             System.out.println("\nTry adding the item first!");
-            printDivider();
         } else {
             printDivider();
             displayDonationStatusMenu();
@@ -146,7 +149,6 @@ public class DonationApp {
             donation.setStatus(status);
             System.out.println("\nDonation item \"" + name + "\" status successfully changed to \"" 
                                 + donation.getStatus() + "\"!");
-            printDivider();
         }
     }
 
@@ -165,7 +167,7 @@ public class DonationApp {
      *          status chosen by the user
      */
     public void doFilterByStatus() {
-        System.out.println("\nWhich status would you like to filter the donation log by?");
+        System.out.println("\nWhich status would you like to filter the donation log by?\n");
         displayDonationStatusMenu();
         String status = getValidDonationStatus();
         DonationLog filteredDonationLog = this.donationLog.filterByStatus(status);
@@ -249,16 +251,44 @@ public class DonationApp {
     }
 
     /*
-     * EFFECTS: returns the number of entries in the donation log
-     */
-    public int countDonations() {
-        return this.donationLog.getNumEntries();
-    }
-
-    /*
      * EFFECTS: displays a line that acts as a divider
      */
     public void printDivider() {
         System.out.println("\n-----------------------------------------------------\n");
+    }
+
+    /*
+     * EFFECTS: saves the donation log to file if the user chooses
+     */
+    private void saveDonationLog() {
+        System.out.print("\nWould you like to save updates made to this donation log to file? (y/n): ");
+        String input = this.scanner.nextLine();
+        if (input.equals("y")) {
+            try {
+                jsonWriter.open();
+                jsonWriter.write(this.donationLog);
+                jsonWriter.close();
+                System.out.println("\nSaved most recent donation log with " + this.donationLog.getNumEntries() + " items to " + JSON_STORE);
+            } catch (FileNotFoundException e) {
+                System.out.println("\nUnable to write to file: " + JSON_STORE);
+            }
+        }
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: loads donation log from file
+     */
+    private void loadDonationLog() {
+        System.out.print("\nWould you like to load the previous donation log from file? (y/n): ");
+        String input = this.scanner.nextLine();
+        if (input.equals("y")) {
+            try {
+                this.donationLog = jsonReader.read();
+                System.out.println("\nLoaded most recent donation log with " + this.donationLog.getNumEntries() + " items from " + JSON_STORE);
+            } catch (IOException e) {
+                System.out.println("\nUnable to read from file: " + JSON_STORE);
+            }
+        }
     }
 }
