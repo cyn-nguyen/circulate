@@ -262,13 +262,14 @@ public class DonationApp {
      */
     private void saveDonationLog() {
         System.out.print("\nWould you like to save updates made to this donation log to file? (y/n): ");
-        String input = this.scanner.nextLine();
+        String input = getValidInput();
         if (input.equals("y")) {
             try {
                 jsonWriter.open();
                 jsonWriter.write(this.donationLog);
                 jsonWriter.close();
-                System.out.println("\nSaved most recent donation log with " + this.donationLog.getNumEntries() + " items to " + JSON_STORE);
+                System.out.println("\nSaved most recent donation log with " 
+                                    + this.donationLog.getNumEntries() + " items to " + JSON_STORE);
             } catch (FileNotFoundException e) {
                 System.out.println("\nUnable to write to file: " + JSON_STORE);
             }
@@ -277,18 +278,36 @@ public class DonationApp {
 
     /*
      * MODIFIES: this
-     * EFFECTS: loads donation log from file
+     * EFFECTS: loads donation log from file if the user chooses
      */
     private void loadDonationLog() {
         System.out.print("\nWould you like to load the previous donation log from file? (y/n): ");
-        String input = this.scanner.nextLine();
+        String input = getValidInput();
         if (input.equals("y")) {
             try {
                 this.donationLog = jsonReader.read();
-                System.out.println("\nLoaded most recent donation log with " + this.donationLog.getNumEntries() + " items from " + JSON_STORE);
+                System.out.println("\nLoaded most recent donation log with " 
+                                    + this.donationLog.getNumEntries() + " items from " + JSON_STORE);
             } catch (IOException e) {
                 System.out.println("\nUnable to read from file: " + JSON_STORE);
             }
         }
+    }
+
+    /*
+     * EFFECTS: gets and returns valid input from user
+     */
+    private String getValidInput() {
+        boolean validInput = false;
+        String input = "";
+        while (!validInput) {
+            input = this.scanner.nextLine().toLowerCase().trim();
+            if (input.equals("y") || input.equals("n")) {
+                validInput = true;
+            } else {
+                System.out.print("\nPlease enter a valid selection (y/n): ");
+            }
+        } 
+        return input;
     }
 }
