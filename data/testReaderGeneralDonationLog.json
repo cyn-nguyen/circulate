@@ -1,0 +1,12 @@
+{"donations": [
+    {
+        "quantity": 15,
+        "name": "oranges",
+        "status": "available"
+    },
+    {
+        "quantity": 20,
+        "name": "pears",
+        "status": "available"
+    }
+]}

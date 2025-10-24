@@ -1,10 +1,14 @@
 package model;
 
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 /*
  * Represents a donation entry with an item name, quantity available, 
  * and status of the item (available, pending pick up, or picked up)
  */
-public class Donation {
+public class Donation implements Writable {
     private static final String AVAILABLE = "available";
     private static final String PENDING = "pending pick up";
     private static final String PICKED_UP = "picked up";
@@ -74,5 +78,17 @@ public class Donation {
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    /*
+     * EFFECTS: returns this as a JSONObject
+     */
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", this.name);
+        json.put("quantity", this.quantity);
+        json.put("status", this.status);
+        return json;
     }
 }

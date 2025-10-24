@@ -2,11 +2,16 @@ package model;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 /*
  * Represents a donation log holding Donation items in the order
  * they are added
  */
-public class DonationLog {
+public class DonationLog implements Writable {
     private ArrayList<Donation> donationLog;
 
     /*
@@ -96,4 +101,25 @@ public class DonationLog {
         return this.donationLog.size();
     }
 
+    /*
+     * EFFECTS: returns this as a JSONObject
+     */
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("donations", donationsToJson());
+        return json;
+    }
+
+    /*
+     * EFFECTS: returns donations in this donation log as a JSON array
+     */
+    private JSONArray donationsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Donation donation : this.donationLog) {
+            jsonArray.put(donation.toJson());
+        }
+        return jsonArray;
+    }
 }

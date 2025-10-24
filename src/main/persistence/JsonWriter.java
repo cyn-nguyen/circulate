@@ -1,21 +1,29 @@
 package persistence;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
+import org.json.JSONObject;
 
 import model.DonationLog;
 
 /*
- * Represents a JSON writer to write data to file
+ * Represents a writer that writes JSON representation of donation log to file
  * 
  * Referenced from the CPSC 210 JsonSerialization Demo
  * https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
  */
 public class JsonWriter {
+    private static final int TAB = 4;
+    private PrintWriter writer;
+    private String destination;
+
     /*
      * EFFECTS: constructs writer to write to destination file
      */
     public JsonWriter(String destination) {
-        // stub
+        this.destination = destination;
     }
 
     /*
@@ -25,7 +33,7 @@ public class JsonWriter {
      *          be opened for writing
      */
     public void open() throws FileNotFoundException {
-        // stub
+        writer = new PrintWriter(new File(destination));
     }
 
     /*
@@ -33,7 +41,8 @@ public class JsonWriter {
      * EFFECTS: writes JSON representation of donation log to file
      */
     public void write(DonationLog donationLog) {
-        // stub
+        JSONObject json = donationLog.toJson();
+        saveToFile(json.toString(TAB));
     }
 
     /*
@@ -41,14 +50,14 @@ public class JsonWriter {
      * EFFECTS: closes writer
      */
     public void close() {
-        // stub
+        writer.close();
     }
 
     /*
      * MODIFIES: this
      * EFFECTS: writes string to file
      */
-    public void saveToFile(String json) {
-        // stub
+    private void saveToFile(String json) {
+        writer.print(json);
     }
 }

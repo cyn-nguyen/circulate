@@ -45,8 +45,8 @@ public class JsonReaderTest extends JsonTest {
         try {
             DonationLog donationLog = reader.read();
             assertEquals(2, donationLog.getNumEntries());
-            checkDonation("bananas", 5, donationLog.getDonation(0));
-            checkDonation("apples", 10, donationLog.getDonation(1));
+            checkDonation("oranges", 15, donationLog.getDonation(0));
+            checkDonation("pears", 20, donationLog.getDonation(1));
         } catch (IOException e) {
             fail("Couldn't read from file");
         }

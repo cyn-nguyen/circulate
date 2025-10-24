@@ -1,9 +1,15 @@
 package persistence;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import model.Donation;
 import model.DonationLog;
 
 /*
@@ -13,11 +19,13 @@ import model.DonationLog;
  * https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
  */
 public class JsonReader {
+    private String source;
+
     /*
      * // EFFECTS: constructs reader to read from source file
      */
     public JsonReader(String source) {
-        // stub
+        this.source = source;
     }
 
     /*
@@ -25,37 +33,54 @@ public class JsonReader {
      *          throws IOException if an error occurs reading data from file
      */
     public DonationLog read() throws IOException {
-        return null;
+        String jsonData = readFile(source);
+        JSONObject jsonObject = new JSONObject(jsonData);
+        return parseDonationLog(jsonObject);
     }
 
     /*
      * EFFECTS: reads source file as string and returns it
      *          throws IOException if an error occurs reading data from file
      */
-    public String readFile(String source) throws IOException {
-        return "";
+    private String readFile(String source) throws IOException {
+        StringBuilder contentBuilder = new StringBuilder();
+
+        try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
+            stream.forEach(s -> contentBuilder.append(s));
+        }
+
+        return contentBuilder.toString();
     }
 
     /*
      * EFFECTS: parses donation log from JSON object and returns it
      */
-    public DonationLog parseDonationLog(JSONObject jsonObject) {
-        return null;
+    private DonationLog parseDonationLog(JSONObject jsonObject) {
+        DonationLog donationLog = new DonationLog();
+        addDonations(donationLog, jsonObject);
+        return donationLog;
     }
 
     /*
      * MODIFIES: donation log
      * EFFECTS: parses all donations from JSON object and adds them to donation log
      */
-    public void addDonations(DonationLog donationLog, JSONObject jsonObject) {
-        // stub
+    private void addDonations(DonationLog donationLog, JSONObject jsonObject) {
+        JSONArray jsonArray = jsonObject.getJSONArray("donations");
+        for (Object json : jsonArray) {
+            JSONObject nextDonation = (JSONObject) json;
+            addDonation(donationLog, nextDonation);
+        }
     }
 
     /*
      * MODIFIES: donationg log
      * EFFECTS: parses a donation from JSON object and adds it to donation log
      */
-    public void addDonation(DonationLog donationLog, JSONObject jsonObject) {
-        // stub
+    private void addDonation(DonationLog donationLog, JSONObject jsonObject) {
+        String name = jsonObject.getString("name");
+        int quantity = jsonObject.getInt("quantity");
+        Donation donation = new Donation(name, quantity);
+        donationLog.addDonation(donation);
     }
 }
