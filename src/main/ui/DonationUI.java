@@ -21,6 +21,7 @@ public class DonationUI extends JFrame {
     public static final int WIDTH = 600;
     public static final int HEIGHT = 400;
     private DonationLog donationLog;
+    private CardLayout cardLayout;
     private JPanel cardLayoutPanel;
 
     public static void main(String[] args) throws Exception {
@@ -38,7 +39,7 @@ public class DonationUI extends JFrame {
 
         donationLog = new DonationLog();
 
-        CardLayout cardLayout = new CardLayout();
+        cardLayout = new CardLayout();
         cardLayoutPanel = new JPanel(cardLayout);
         loadMenuOptionPanels();
         add(cardLayoutPanel);
@@ -53,21 +54,17 @@ public class DonationUI extends JFrame {
      * EFFECTS: adds menu option panels to this UI
      */
     private void loadMenuOptionPanels() {
-        JPanel homePanel = new JPanel();
-        cardLayoutPanel.add(homePanel);
-        JLabel welcomeLabel1 = new JLabel("Welcome to circulate: a donation tracking application");
-        homePanel.add(welcomeLabel1);
-        JLabel welcomeLabel2 = new JLabel("Please select an option from the menu bar");
-        homePanel.add(welcomeLabel2);
+        JPanel homePanel = new HomePanel(this);
+        cardLayoutPanel.add("Home", homePanel);
 
-        JPanel addDonationPanel = new JPanel();
-        cardLayoutPanel.add(addDonationPanel);
+        JPanel addDonationPanel = new AddDonationPanel(this);
+        cardLayoutPanel.add("Add donation", addDonationPanel);
 
-        JPanel viewLogPanel = new JPanel();
-        cardLayoutPanel.add(viewLogPanel);
+        JPanel viewLogPanel = new ViewLogPanel(this);
+        cardLayoutPanel.add("View donation log", viewLogPanel);
 
-        JPanel filterLogPanel = new JPanel();
-        cardLayoutPanel.add(filterLogPanel);
+        JPanel filterLogPanel = new FilterLogPanel(this);
+        cardLayoutPanel.add("Filter donation log", filterLogPanel);
     }
 
     /*
@@ -75,30 +72,38 @@ public class DonationUI extends JFrame {
      * EFFECTS: adds menu bar to this UI
      */
     private JMenuBar loadMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
-        
-        JMenu fileMenu = new JMenu("File");
-        menuBar.add(fileMenu);
-
-        JMenuItem loadFromFile = new JMenuItem("Load donation log from file");
-        fileMenu.add(loadFromFile);
-        JMenuItem saveToFile = new JMenuItem("Save donation log to file");
-        fileMenu.add(saveToFile);
-        JMenuItem quit = new JMenuItem("Quit");
-        fileMenu.add(quit);
-         
-        JMenu actionsMenu = new JMenu("Actions");
-        menuBar.add(actionsMenu);
-
-        JMenuItem addDonation = new JMenuItem("Add a donation");
-        actionsMenu.add(addDonation);
-        JMenuItem viewLog = new JMenuItem("View donation log");
-        actionsMenu.add(viewLog);
-        JMenuItem filterLog = new JMenuItem("Filter donation log by item status");
-        actionsMenu.add(filterLog);
-
-        return menuBar;
+        MenuBar menuBar = new MenuBar(this);
+        return menuBar.buildMenuBar();
     }
+
+    /*
+     * EFFECTS: shows the home panel
+     */
+    public void showHomePanel() {
+        cardLayout.show(cardLayoutPanel, "Home");
+    }
+
+    /*
+     * EFFECTS: shows the add a donation panel
+     */
+    public void showAddDonationPanel() {
+        cardLayout.show(cardLayoutPanel, "Add donation");
+    }
+
+    /*
+     * EFFECTS: shows the view donation log panel
+     */
+    public void showViewPanel() {
+        cardLayout.show(cardLayoutPanel, "View donation log");
+    }
+
+    /*
+     * EFFECTS: shows the filter donation log panel
+     */
+    public void showFilterPanel() {
+        cardLayout.show(cardLayoutPanel, "Filter donation log");
+    }
+
 
     /*
      * EFFECTS: returns DonationLog controlled by this UI
