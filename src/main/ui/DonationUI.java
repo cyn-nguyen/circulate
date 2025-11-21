@@ -23,6 +23,7 @@ public class DonationUI extends JFrame {
     private DonationLog donationLog;
     private CardLayout cardLayout;
     private JPanel cardLayoutPanel;
+    private ViewLogPanel viewLogPanel;
 
     public static void main(String[] args) throws Exception {
         new DonationUI();
@@ -60,7 +61,7 @@ public class DonationUI extends JFrame {
         JPanel addDonationPanel = new AddDonationPanel(this);
         cardLayoutPanel.add("Add donation", addDonationPanel);
 
-        JPanel viewLogPanel = new ViewLogPanel(this);
+        viewLogPanel = new ViewLogPanel(this);
         cardLayoutPanel.add("View donation log", viewLogPanel);
 
         JPanel filterLogPanel = new FilterLogPanel(this);
@@ -108,7 +109,14 @@ public class DonationUI extends JFrame {
     /*
      * EFFECTS: returns DonationLog controlled by this UI
      */
-    private DonationLog getDonationLog() {
+    public DonationLog getDonationLog() {
         return donationLog;
+    }
+
+    /*
+     * EFFECTS: 
+     */
+    public void notifyDonationAdded() {
+        viewLogPanel.updateTable();
     }
 }
