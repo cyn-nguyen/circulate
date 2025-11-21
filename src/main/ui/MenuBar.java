@@ -13,7 +13,6 @@ public class MenuBar extends JMenuBar {
 
     public MenuBar(DonationUI app) {
         this.app = app;
-        JMenuBar menuBar = buildMenuBar();
     }
 
     public JMenuBar buildMenuBar() {
@@ -56,10 +55,17 @@ public class MenuBar extends JMenuBar {
     private JMenu buildActionsMenu() {
         JMenu actionsMenu = new JMenu("Actions");
 
-        actionsMenu.add(addMenuItem("Add a donation", new ActionListener() {
+        actionsMenu.add(addMenuItem("Add a donation item", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 app.showAddDonationPanel();
+            }
+        }));
+
+        actionsMenu.add(addMenuItem("Change donation item status", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                app.showChangeStatusPanel();
             }
         }));
 

@@ -11,14 +11,9 @@ import javax.swing.JTextField;
 import model.Donation;
 
 public class AddDonationPanel extends MenuOptionPanel {
-    private AddDonationPanel addDonationPanel;
 
     public AddDonationPanel(DonationUI app) {
         super(app);
-
-        JLabel title = new JLabel("Add a donation entry and click 'Add'");
-        add(title);
-
         getDonation(app);
     }
 
@@ -51,7 +46,7 @@ public class AddDonationPanel extends MenuOptionPanel {
                 
                 int newNumEntries = app.getDonationLog().getNumEntries();
                 if (newNumEntries > numEntries) {
-                    JOptionPane.showMessageDialog(app, "Donation added!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(app, "Donation added! View donation log for changes", "Success", JOptionPane.INFORMATION_MESSAGE);
                     app.notifyDonationAdded();
                 }
                 // while (quantityString.isEmpty()) {

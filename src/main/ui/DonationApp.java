@@ -12,6 +12,7 @@ import persistence.JsonWriter;
 
 /*
  * CONSOLE UI
+ * 
  * Donation application that allows the user to add donations
  * into the donation log, view individual donation entries, and
  * view and filter the entire donation log

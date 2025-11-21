@@ -1,6 +1,5 @@
 package ui;
 
-import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -15,9 +14,6 @@ public class ViewLogPanel extends MenuOptionPanel {
         super(app);
 
         donationLog = app.getDonationLog();
-
-        JLabel numEntries = new JLabel("Total number of donations: " + donationLog.getNumEntries());
-        add(numEntries);
 
         tableModel = new DonationLogTableModel(donationLog);
         table = new JTable(tableModel);

@@ -37,8 +37,20 @@ public class DonationUI extends JFrame {
      */
     private DonationUI() {
         super("circulate");
+
+        SplashScreen splashScreen = new SplashScreen("./data/loading.gif", 5000);
+        try {
+            splashScreen.setVisible(true);
+            Thread.sleep(5000);
+            splashScreen.setVisible(false);
+            splashScreen.dispose();
+        } catch (InterruptedException e) {
+        
+        }
+
         setSize(WIDTH, HEIGHT);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
 
         donationLog = new DonationLog();
 
@@ -62,6 +74,9 @@ public class DonationUI extends JFrame {
 
         JPanel addDonationPanel = new AddDonationPanel(this);
         cardLayoutPanel.add("Add donation", addDonationPanel);
+
+        JPanel changeStatusPanel = new ChangeStatusPanel(this);
+        cardLayoutPanel.add("Change status", changeStatusPanel);
 
         viewLogPanel = new ViewLogPanel(this);
         cardLayoutPanel.add("View donation log", viewLogPanel);
@@ -91,6 +106,13 @@ public class DonationUI extends JFrame {
      */
     public void showAddDonationPanel() {
         cardLayout.show(cardLayoutPanel, "Add donation");
+    }
+
+    /*
+     * EFFECTS: shows the change status panel
+     */
+    public void showChangeStatusPanel() {
+        cardLayout.show(cardLayoutPanel, "Change status");
     }
 
     /*
