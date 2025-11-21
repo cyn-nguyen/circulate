@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class MenuBar extends JMenuBar {
     private final DonationUI app;
@@ -33,9 +34,21 @@ public class MenuBar extends JMenuBar {
             }
         }));
 
-        // fileMenu.add(addMenuItem("Load donation log from file"));
-        // fileMenu.add(addMenuItem("Save donation log to file"));
-        // fileMenu.add(addMenuItem("Quit"));
+        fileMenu.add(addMenuItem("Load previous donation log from file", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                app.loadDonationLog();
+                JOptionPane.showMessageDialog(app, "Loading previous donation log", "Success", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }));
+
+        fileMenu.add(addMenuItem("Save donation log to file", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                app.saveDonationLog();
+                JOptionPane.showMessageDialog(app, "Donation log saved", "Success", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }));
 
         return fileMenu;
     }

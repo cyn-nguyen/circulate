@@ -6,6 +6,8 @@ import javax.swing.*;
 
 import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import model.DonationLog;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 /*
  * GUI
@@ -118,5 +120,33 @@ public class DonationUI extends JFrame {
      */
     public void notifyDonationAdded() {
         viewLogPanel.updateTable();
+    }
+
+    /*
+     * EFFECTS: 
+     */
+    public void loadDonationLog() {
+        JsonReader jsonReader = new JsonReader("./data/donationlog.json");
+        try {
+            this.donationLog = jsonReader.read();
+            viewLogPanel = new ViewLogPanel(this);
+            cardLayoutPanel.add("View donation log", viewLogPanel);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Unable to load donation log", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    /*
+     * EFFECTS: 
+     */
+    public void saveDonationLog() {
+        JsonWriter jsonWriter = new JsonWriter("./data/donationlog.json");
+        try {
+            jsonWriter.open();
+            jsonWriter.write(this.donationLog);
+            jsonWriter.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Unable to save donation log", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 }

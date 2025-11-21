@@ -51,7 +51,7 @@ public class AddDonationPanel extends MenuOptionPanel {
                 
                 int newNumEntries = app.getDonationLog().getNumEntries();
                 if (newNumEntries > numEntries) {
-                    JOptionPane.showMessageDialog(app, "Donation added!", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(app, "Donation added!", "Success", JOptionPane.INFORMATION_MESSAGE);
                     app.notifyDonationAdded();
                 }
                 // while (quantityString.isEmpty()) {
