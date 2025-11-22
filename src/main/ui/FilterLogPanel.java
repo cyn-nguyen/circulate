@@ -44,24 +44,28 @@ public class FilterLogPanel extends MenuOptionPanel {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 String status = statusField.getText().trim();
-                if (checkValidStatus(status)) {
-                    DonationLog unfilteredLog = app.getDonationLog();
-                    DonationLog filteredLog = unfilteredLog.filterByStatus(status);
-                    if (scrollPane != null) {
-                        remove(scrollPane);
-                    }
-                    tableModel = new DonationLogTableModel(filteredLog);
-                    table = new JTable(tableModel);
-                    scrollPane = new JScrollPane(table);
-                    add(scrollPane);
-                    JOptionPane.showMessageDialog(app, "Now viewing filtered donation log", 
-                                            "Success", JOptionPane.INFORMATION_MESSAGE);
-                    revalidate();
-                    repaint();
-                } else {
-                    displayInvalidStatusMessage(app);
-                }
+                filterLog(app, status);
             }
         });
+    }
+
+    public void filterLog(DonationUI app, String status) {
+        if (checkValidStatus(status)) {
+            DonationLog unfilteredLog = app.getDonationLog();
+            DonationLog filteredLog = unfilteredLog.filterByStatus(status);
+            if (scrollPane != null) {
+                remove(scrollPane);
+            }
+            tableModel = new DonationLogTableModel(filteredLog);
+            table = new JTable(tableModel);
+            scrollPane = new JScrollPane(table);
+            add(scrollPane);
+            JOptionPane.showMessageDialog(app, "Now viewing filtered donation log", 
+                                    "Success", JOptionPane.INFORMATION_MESSAGE);
+            revalidate();
+            repaint();
+        } else {
+            displayInvalidStatusMessage(app);
+        }
     }
 }
