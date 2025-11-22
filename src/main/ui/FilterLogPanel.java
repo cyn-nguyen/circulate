@@ -54,7 +54,8 @@ public class FilterLogPanel extends MenuOptionPanel {
                     table = new JTable(tableModel);
                     scrollPane = new JScrollPane(table);
                     add(scrollPane);
-                    JOptionPane.showMessageDialog(app, "Now viewing filtered donation log", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(app, "Now viewing filtered donation log", 
+                                            "Success", JOptionPane.INFORMATION_MESSAGE);
                     revalidate();
                     repaint();
                 } else {

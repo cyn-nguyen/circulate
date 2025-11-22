@@ -70,6 +70,7 @@ public class MenuBar extends JMenuBar {
      * EFFECTS: creates and returns actions menu with menu items and 
      *          associated action listeners for menu bar
      */
+    @SuppressWarnings("methodlength")
     private JMenu buildActionsMenu() {
         JMenu actionsMenu = new JMenu("Actions");
 

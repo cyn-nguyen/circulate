@@ -44,12 +44,12 @@ public class AddDonationPanel extends MenuOptionPanel {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 String name = nameField.getText().trim();
-                int quantity = Integer.parseInt(quantityField.getText().trim());
+                String quantityString = quantityField.getText().trim();
+                int quantity = Integer.parseInt(quantityString);
 
                 if (name.isEmpty()) {
                     displayInvalidNameMessage(app);
-                } else if (quantity <= 0) {
-                    displayInvalidQuantityMessage(app);
+                } else if (quantity > 0) {
                     Donation donation = new Donation(name, quantity);
                     app.getDonationLog().addDonation(donation);
                     displayDonationAddedMessage(app);
