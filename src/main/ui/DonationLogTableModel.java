@@ -2,13 +2,21 @@ package ui;
 
 import javax.swing.table.AbstractTableModel;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import model.Donation;
 import model.DonationLog;
 
+/*
+ * The table model that will be used to display donation log
+ */
+@ExcludeFromJacocoGeneratedReport
 public class DonationLogTableModel extends AbstractTableModel {
     private DonationLog donationLog;
     private String[] columnNames = {"Donation", "Quantity", "Status"};
     
+    /*
+     * EFFECTS: creates the table model for the given donation log
+     */
     public DonationLogTableModel(DonationLog donationLog) {
         this.donationLog = donationLog;
     }

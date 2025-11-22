@@ -5,62 +5,57 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import model.Donation;
 
+/*
+ * The panel where a donation can be added to the donation log
+ */
+@ExcludeFromJacocoGeneratedReport
 public class AddDonationPanel extends MenuOptionPanel {
 
+    /*
+     * EFFECTS: creates the add donation panel for the given UI
+     */
     public AddDonationPanel(DonationUI app) {
         super(app);
+        add(new JLabel("Enter the name of the item: "));
         getDonation(app);
     }
 
+    /*
+     * EFFECTS: gets donation name and quantity from the user to add to donation log
+     */
     public void getDonation(DonationUI app) {
-        JLabel nameLabel = new JLabel("Enter the name of the item: ");
-        add(nameLabel);
-        
         JTextField nameField = new JTextField(20);
         add(nameField);
 
-        JLabel quantityLabel = new JLabel("Enter quantity available: ");
-        add(quantityLabel);
+        add(new JLabel("Enter quantity available: "));
 
         JTextField quantityField = new JTextField(20);
         add(quantityField);
 
         JButton addDonationButton = new JButton("Add");
         add(addDonationButton);
+
         addDonationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 String name = nameField.getText().trim();
-                String quantityString = quantityField.getText().trim();
-                // JLabel resultLabel = new JLabel("Please enter a valid name");
-                // add(resultLabel);
-                int quantity = Integer.parseInt(quantityString);
-                Donation donation = new Donation(name, quantity);
-                int numEntries = app.getDonationLog().getNumEntries();
-                app.getDonationLog().addDonation(donation);
-                
-                int newNumEntries = app.getDonationLog().getNumEntries();
-                if (newNumEntries > numEntries) {
-                    JOptionPane.showMessageDialog(app, "Donation added! View donation log for changes", "Success", JOptionPane.INFORMATION_MESSAGE);
+                int quantity = Integer.parseInt(quantityField.getText().trim());
+
+                if (name.isEmpty()) {
+                    displayInvalidNameMessage(app);
+                } else if (quantity <= 0) {
+                    displayInvalidQuantityMessage(app);
+                    Donation donation = new Donation(name, quantity);
+                    app.getDonationLog().addDonation(donation);
+                    displayDonationAddedMessage(app);
                     app.notifyDonationAdded();
                 }
-                // while (quantityString.isEmpty()) {
-                //     JLabel resultLabel = new JLabel("Please enter a valid name");
-                //     add(resultLabel);
-                //     String quantityString = quantityField.getText().trim();
-                // }
-                // try {
-                //     int quantity = Integer.parseInt(quantityString);
-                //     Donation donation = new Donation(name, quantity);
-                //     app.getDonationLog().addDonation(donation);
-                // } catch (NumberFormatException e) {
-
-                }
-            });
+            }
+        });
     }
 }

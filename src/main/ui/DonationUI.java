@@ -12,11 +12,16 @@ import persistence.JsonWriter;
 /*
  * GUI
  * 
- * Referenced from the CPSC 210 SmartHome starter
- * https://github.students.cs.ubc.ca/CPSC210/LongFormProblemStarters
- * and An Introduction to Graphical User Interfaces with Java Swing
- * by Paul Fischer 
- * https://arisikhwan.wordpress.com/wp-content/uploads/2011/03/gui-with-swing.pdf
+ * Donation application that allows the user to add donations
+ * into the donation log, view individual donation entries, and
+ * view and filter the entire donation log
+ * 
+ * All classes used in DonationUI:
+    * referenced from the CPSC 210 SmartHome starter
+    * https://github.students.cs.ubc.ca/CPSC210/LongFormProblemStarters
+    * and An Introduction to Graphical User Interfaces with Java Swing
+    * by Paul Fischer 
+    * https://arisikhwan.wordpress.com/wp-content/uploads/2011/03/gui-with-swing.pdf
  */
 @ExcludeFromJacocoGeneratedReport
 public class DonationUI extends JFrame {
@@ -33,7 +38,7 @@ public class DonationUI extends JFrame {
 
     /*
      * MODIFIES: this
-     * EFFECTS: creates and displays DonationUI frame
+     * EFFECTS: creates and displays splash screen, then DonationUI frame
      */
     private DonationUI() {
         super("circulate");
@@ -45,7 +50,7 @@ public class DonationUI extends JFrame {
             splashScreen.setVisible(false);
             splashScreen.dispose();
         } catch (InterruptedException e) {
-        
+            // pass
         }
 
         setSize(WIDTH, HEIGHT);
@@ -138,14 +143,15 @@ public class DonationUI extends JFrame {
     }
 
     /*
-     * EFFECTS: 
+     * EFFECTS: notifies the view log panel when a donation is added to the log
+     *          so the panel displays the updated donation log
      */
     public void notifyDonationAdded() {
         viewLogPanel.updateTable();
     }
 
     /*
-     * EFFECTS: 
+     * EFFECTS: loads a donation log from file
      */
     public void loadDonationLog() {
         JsonReader jsonReader = new JsonReader("./data/donationlog.json");
@@ -154,12 +160,13 @@ public class DonationUI extends JFrame {
             viewLogPanel = new ViewLogPanel(this);
             cardLayoutPanel.add("View donation log", viewLogPanel);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Unable to load donation log", "Error", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Unable to load donation log", 
+                                    "Error", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
     /*
-     * EFFECTS: 
+     * EFFECTS: saves the current donation log to file
      */
     public void saveDonationLog() {
         JsonWriter jsonWriter = new JsonWriter("./data/donationlog.json");
@@ -168,7 +175,8 @@ public class DonationUI extends JFrame {
             jsonWriter.write(this.donationLog);
             jsonWriter.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Unable to save donation log", "Error", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Unable to save donation log", 
+                                    "Error", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }

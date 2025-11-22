@@ -2,8 +2,17 @@ package ui;
 
 import javax.swing.JLabel;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+
+/*
+ * Home page panel
+ */
+@ExcludeFromJacocoGeneratedReport
 public class HomePanel extends MenuOptionPanel {
 
+    /*
+     * EFFECTS: creates the home page panel for the given UI
+     */
     public HomePanel(DonationUI app) {
         super(app);
 

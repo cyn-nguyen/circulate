@@ -12,5 +12,14 @@ As a user, I want to be able to:
 - update a donation item's status to available, pending pick-up, or picked up
 - view the entire donation log and keep count of all items (of any status) in the log
 - filter the donation log to view and keep count of the items currently available, pending pick-up, or picked up
-- be given the option to save all updates made to the donation log to file upon selecting the quit option from the menu
-- be given the option to load a donation log from file upon starting the application
+- have the option to save all updates made to the donation log to file
+- have the option to load a donation log from file
+
+### Instructions for end user
+- You can view the panel that displays the Xs that have already been added to the Y by <b>Actions > View donation log</b>
+- You can generate the first required action related to the user story "adding multiple Xs to a Y" by <b>Actions > Add a donation item</b>
+- You can generate the second required action related to the user story "adding multiple Xs to a Y" by <b>Actions > Filter donation log by item status</b>
+    - You can change an item's status by <b>Actions > Change donation item status</b> so there are items with different statuses
+- You can locate my visual component by running the application (a splash screen will be displayed while the application is loading)
+- You can save the state of my application by <b>File > Save donation log to file</b>
+- You can reload the state of my application by <b>File > Load previous donation log from file</b>

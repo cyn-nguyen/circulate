@@ -8,13 +8,22 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
+
+/*
+ * Represents a menu bar that will be added to UI
+ */
+@ExcludeFromJacocoGeneratedReport
 public class MenuBar extends JMenuBar {
-    private final DonationUI app;
+    private DonationUI app;
 
     public MenuBar(DonationUI app) {
         this.app = app;
     }
 
+    /*
+     * EFFECTS: creates and return menu bar
+     */
     public JMenuBar buildMenuBar() {
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(buildFileMenu());
@@ -23,6 +32,10 @@ public class MenuBar extends JMenuBar {
         return menuBar;
     }
 
+    /*
+     * EFFECTS: creates and returns file menu with menu items and 
+     *          associated action listeners for menu bar
+     */
     private JMenu buildFileMenu() {
         JMenu fileMenu = new JMenu("File");
 
@@ -37,7 +50,8 @@ public class MenuBar extends JMenuBar {
             @Override
             public void actionPerformed(ActionEvent e) {
                 app.loadDonationLog();
-                JOptionPane.showMessageDialog(app, "Loading previous donation log", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(app, "Loading previous donation log", 
+                                        "Success", JOptionPane.INFORMATION_MESSAGE);
             }
         }));
 
@@ -52,6 +66,10 @@ public class MenuBar extends JMenuBar {
         return fileMenu;
     }
 
+    /*
+     * EFFECTS: creates and returns actions menu with menu items and 
+     *          associated action listeners for menu bar
+     */
     private JMenu buildActionsMenu() {
         JMenu actionsMenu = new JMenu("Actions");
 
@@ -86,6 +104,10 @@ public class MenuBar extends JMenuBar {
         return actionsMenu;
     }
 
+    /*
+     * EFFECTS: creates and return individual menu items with their
+     *          associated action listeners for menu bar
+     */
     private JMenuItem addMenuItem(String action, ActionListener al) {
         JMenuItem menuItem = new JMenuItem(action);
         menuItem.addActionListener(al);
