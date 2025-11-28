@@ -1,11 +1,15 @@
 package ui;
 
 import java.awt.CardLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.*;
 
 import ca.ubc.cs.ExcludeFromJacocoGeneratedReport;
 import model.DonationLog;
+import model.Event;
+import model.EventLog;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -54,8 +58,6 @@ public class DonationUI extends JFrame {
         }
 
         setSize(WIDTH, HEIGHT);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
 
         donationLog = new DonationLog();
 
@@ -67,6 +69,9 @@ public class DonationUI extends JFrame {
         setJMenuBar(loadMenuBar());
 
         setVisible(true);
+
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        close();
     }
     
     /*
@@ -179,5 +184,23 @@ public class DonationUI extends JFrame {
             JOptionPane.showMessageDialog(this, "Unable to save donation log", 
                                     "Error", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: exits the UI and prints to console all events that occurred
+     *          since the application started
+     */
+    public void close() {
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                for (Event event : EventLog.getInstance()) {
+                    System.out.println(event.toString());
+                }
+                dispose();
+                System.exit(0);
+            }
+        });
     }
 }

@@ -35,6 +35,8 @@ public class Donation implements Writable {
      */
     public void markAsAvailable() {
         this.status = AVAILABLE;
+        EventLog.getInstance().logEvent(new Event("Donation item \"" + name 
+                                                    + "\" status changed to \"" + AVAILABLE + "\""));
     }
 
     /*
@@ -43,6 +45,8 @@ public class Donation implements Writable {
      */
     public void markAsPending() {
         this.status = PENDING;
+        EventLog.getInstance().logEvent(new Event("Donation item \"" + name 
+                                                    + "\" status changed to \"" + PENDING + "\""));
     }
 
     /*
@@ -51,6 +55,8 @@ public class Donation implements Writable {
      */
     public void markAsPickedUp() {
         this.status = PICKED_UP;
+        EventLog.getInstance().logEvent(new Event("Donation item \"" + name 
+                                                    + "\" status changed to \"" + PICKED_UP + "\""));
     }
 
     // getters
@@ -78,6 +84,8 @@ public class Donation implements Writable {
      */
     public void setStatus(String status) {
         this.status = status;
+        EventLog.getInstance().logEvent(new Event("Donation item \"" + name 
+                                                    + "\" status changed to \"" + status + "\""));
     }
 
     /*

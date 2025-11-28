@@ -23,3 +23,24 @@ As a user, I want to be able to:
 - You can locate my visual component by running the application (a splash screen will be displayed while the application is loading)
 - You can save the state of my application by <b>File > Save donation log to file</b>
 - You can reload the state of my application by <b>File > Load previous donation log from file</b>
+
+### Phase 4: Task 2
+
+1. Fri Nov 28 10:22:30 PST 2025
+<br> Donation item "item1" added to log with 10 available
+2. Fri Nov 28 10:22:34 PST 2025
+<br> Donation item "item2" added to log with 20 available
+3. Fri Nov 28 10:22:38 PST 2025
+<br> Donation item "item3" added to log with 30 available
+4. Fri Nov 28 10:22:48 PST 2025
+<br> Donation item "item2" status changed to "pending pick up"
+5. Fri Nov 28 10:22:55 PST 2025
+<br> Donation item "item3" status changed to "picked up"
+6. Fri Nov 28 10:23:03 PST 2025
+<br> Donation item "item3" added to log with 30 picked up (*should not be printed*)
+7. Fri Nov 28 10:23:03 PST 2025
+<br> Donation log filtered by status "picked up"
+8. Fri Nov 28 10:23:07 PST 2025
+<br> Donation item "item2" added to log with 20 pending pick up (*should not be printed*)
+
+There is a bug that I can't figure out how to fix: when a donation item's status is changed (as in 4 and 5), additional events are later logged stating that that item has been added to the log (as in 6 and 8), when really it has just been updated in the log (no new items are actually added).  This "donation added" event is created when addDonation(Donation donation) is called within DonationLog, since I only want the event to be created when a new item is added.  The setter methods in Donation that change a donation's status which creates a "status changed" event are not related to the "donation added" event, so I'm not sure why these extra events are being logged.  The donation log maintains the same number Donation items when items' statuses are changed, so I don't want these events to be created in this case.  When donation items are added to the log, their status is initially set to "available", so these events are not representative of what is happening.

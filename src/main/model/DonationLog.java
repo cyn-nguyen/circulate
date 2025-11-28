@@ -27,6 +27,9 @@ public class DonationLog implements Writable {
      */
     public void addDonation(Donation donation) {
         this.donationLog.add(donation);
+        EventLog.getInstance().logEvent(new Event("Donation item \"" + donation.getName() 
+                                    + "\" added to log with " + donation.getQuantity() + " " + donation.getStatus()));
+    
     }
 
     /*
@@ -41,6 +44,7 @@ public class DonationLog implements Writable {
                 filteredDonationLog.addDonation(donation);
             }
         }
+        EventLog.getInstance().logEvent(new Event("Donation log filtered by status \"" + status + "\""));
         return filteredDonationLog;
     } 
 
