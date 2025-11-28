@@ -49,6 +49,9 @@ public class FilterLogPanel extends MenuOptionPanel {
         });
     }
 
+    /*
+     * EFFECTS: filters the donation log by status
+     */
     public void filterLog(DonationUI app, String status) {
         if (checkValidStatus(status)) {
             DonationLog unfilteredLog = app.getDonationLog();

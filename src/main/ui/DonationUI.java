@@ -151,6 +151,7 @@ public class DonationUI extends JFrame {
     }
 
     /*
+     * MODIFIES: donation log
      * EFFECTS: loads a donation log from file
      */
     public void loadDonationLog() {
