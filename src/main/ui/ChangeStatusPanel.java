@@ -52,11 +52,11 @@ public class ChangeStatusPanel extends MenuOptionPanel {
                 String newStatus = changeField.getText().trim();
 
                 if (!donationLog.hasDonation(name)) {
-                    displayNoSuchDonationMessage(app, name);
+                    displayNoSuchDonationMessage(name);
                 } else if (checkValidStatus(newStatus)) {
                     setNewStatus(app, donationLog.getDonation(name), newStatus);
                 } else {
-                    displayInvalidStatusMessage(app);
+                    displayInvalidStatusMessage();
                 }
             }
         });

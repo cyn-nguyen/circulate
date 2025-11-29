@@ -47,7 +47,7 @@ public class DonationLog implements Writable {
         EventLog.getInstance().logEvent(new Event("Donation log filtered by status \"" + status + "\""));
         return filteredDonationLog;
     } 
-
+    
     /*
      * EFFECTS: checks if a donation with donationName exists in the donation Log;
      *          returns true if so, otherwise returns false

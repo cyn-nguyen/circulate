@@ -68,7 +68,7 @@ public class FilterLogPanel extends MenuOptionPanel {
             revalidate();
             repaint();
         } else {
-            displayInvalidStatusMessage(app);
+            displayInvalidStatusMessage();
         }
     }
 }

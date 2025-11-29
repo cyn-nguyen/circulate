@@ -48,11 +48,11 @@ public class AddDonationPanel extends MenuOptionPanel {
                 int quantity = Integer.parseInt(quantityString);
 
                 if (name.isEmpty()) {
-                    displayInvalidNameMessage(app);
+                    displayInvalidNameMessage();
                 } else if (quantity > 0) {
                     Donation donation = new Donation(name, quantity);
                     app.getDonationLog().addDonation(donation);
-                    displayDonationAddedMessage(app);
+                    displayDonationAddedMessage();
                     app.notifyDonationAdded();
                 }
             }

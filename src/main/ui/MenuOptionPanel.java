@@ -22,28 +22,28 @@ public abstract class MenuOptionPanel extends JPanel {
     /*
      * EFFECTS: displays a message to the user if an invalid status is entered
      */
-    public void displayInvalidStatusMessage(DonationUI app) {
+    public void displayInvalidStatusMessage() {
         JOptionPane.showMessageDialog(app, "Please enter valid status", "Error", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /*
      * EFFECTS: displays a message to the user if an invalid name is entered
      */
-    public void displayInvalidNameMessage(DonationUI app) {
+    public void displayInvalidNameMessage() {
         JOptionPane.showMessageDialog(app, "Please enter a valid name", "Error", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /*
      * EFFECTS: displays a message to the user if an invalid quantity is entered
      */
-    public void displayInvalidQuantityMessage(DonationUI app) {
+    public void displayInvalidQuantityMessage() {
         JOptionPane.showMessageDialog(app, "Please enter a valid quantity", "Error", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /*
      * EFFECTS: displays a message to the user if the donation was added successfully
      */
-    public void displayDonationAddedMessage(DonationUI app) {
+    public void displayDonationAddedMessage() {
         JOptionPane.showMessageDialog(app, "Donation added! View donation log for changes", 
                                 "Success", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -51,7 +51,7 @@ public abstract class MenuOptionPanel extends JPanel {
     /*
      * EFFECTS: displays a message to the user if the donation was added successfully
      */
-    public void displayNoSuchDonationMessage(DonationUI app, String name) {
+    public void displayNoSuchDonationMessage(String name) {
         JOptionPane.showMessageDialog(app, "Item \'" + name + "\' not in donation log", "Error",
                             JOptionPane.INFORMATION_MESSAGE);
     }
